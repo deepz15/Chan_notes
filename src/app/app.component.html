@@ -1,0 +1,39 @@
+<div class='toolbar' role='banner'>
+  <h2>Chan-Notes</h2>
+  
+  <button (click)='block()' id='myBtn'>+</button>
+</div>
+
+<div id='myModal' class='modal'>
+  <div class="modal-content">
+    <div>
+      <div class='entry'>
+        <button class='xb' (click)='close();'>X</button>
+        <form [formGroup]='dForm' (ngSubmit)='PostData(dForm.value)'>
+          <input type='text' formControlName='title' name='title' id='title' placeholder='Title' class='form-control'>
+          <div *ngIf="dForm.controls['title'].touched && !dForm.controls['title'].valid">
+            <span *ngIf="dForm.controls['title'].hasError('required') " class="error-msg">
+              Title Required
+            </span>
+          </div>
+          <br> <br>
+          <textarea formControlName='content' placeholder='Conent' id='content' cols='30' rows='10'></textarea>
+          <div *ngIf="dForm.controls['content'].touched && !dForm.controls['content'].valid"> </div>
+
+          <input (click)='close()' [disabled]="!dForm.controls['title'].valid" class='bbt' type='Submit' value='save'>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class='op'>
+  <div class='output' *ngFor='let f of fetch'>
+    <textarea name='' id='created' cols='30' rows='10'> Title: {{f.title}}  
+    
+Content: {{f.content}}</textarea>
+    <button (click)='del(f.id)' class='dt'>🗑️</button><button (click)='cpText()' class='cp'> 📋 </button>
+    <br>
+  </div>
+</div>
